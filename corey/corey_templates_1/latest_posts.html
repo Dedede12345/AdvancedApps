@@ -1,0 +1,26 @@
+
+{% extends 'blog/base.html' %}
+
+{% block content %}
+
+    <h1 class="mb-3">5 latest posts</h1>
+
+        {% for post in posts %}
+            {% if post.id|add:'5' > posts.first.id %}
+
+                <article class="media content-section">
+                    <img class="rounded-circle article-img" src="{{ post.author.profile.image.url }}">
+                    <div class="media-body">
+                        <div class="article-metadata">
+                            <a style="text-decoration:none" class="mr-2" href="{% url 'user-posts' post.author.username %}">{{ post.author }}</a>
+                            <small class="text-muted">{{ post.date_posted|date:"d F, Y" }}</small>
+                        </div>
+                        <h2><a style="text-decoration:none" class="article-title" href="{% url 'post-detail' post.id %}">{{ post.title }}</a></h2>
+                        <p class="article-content">{{ post.content }}</p>
+                    </div>
+                </article>
+            {% endif %}
+        {% endfor %}
+{% endblock content %}
+
+<!-- for image tag of admin announcement posts <img src="cinqueterre.jpg" class="img-thumbnail" alt="Cinque Terre" width="304" height="236">-->
